@@ -6,7 +6,7 @@ import { Filter } from "lucide-react";
 import { GlobalHeader } from "@/components/GlobalHeader";
 import { CampaignOverview } from "@/components/CampaignOverview";
 import { BudgetOverview } from "@/components/BudgetOverview";
-import { MarketPerformance } from "@/components/MarketPerformance";
+import { InfluencerTable } from "@/components/InfluencerTable";
 
 const Index = () => {
   const [selectedBrand, setSelectedBrand] = useState("hellofresh");
@@ -84,9 +84,9 @@ const Index = () => {
             <BudgetOverview />
           </div>
           
-          {/* Bottom Span: Market Performance */}
+          {/* Bottom Span: Influencer Table */}
           <div className="col-span-2">
-            <MarketPerformance />
+            <InfluencerTable />
           </div>
         </div>
       </div>
