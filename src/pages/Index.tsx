@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -73,19 +72,19 @@ const Index = () => {
         </div>
 
         {/* Dashboard Grid Layout */}
-        <div className="grid grid-cols-2 gap-6">
-          {/* Top Left: Campaign Overview */}
+        <div className="grid grid-cols-1 gap-6">
+          {/* Campaign Overview */}
           <div>
             <CampaignOverview />
           </div>
           
-          {/* Top Right: Budget Overview */}
+          {/* Budget Overview */}
           <div>
             <BudgetOverview />
           </div>
           
-          {/* Bottom Span: Influencer Table */}
-          <div className="col-span-2">
+          {/* Influencer Table */}
+          <div>
             <InfluencerTable />
           </div>
         </div>
