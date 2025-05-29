@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -28,13 +27,6 @@ export const BudgetOverview = () => {
       icon: TrendingDown,
       iconColor: "text-green-400"
     }
-  ];
-
-  const categories = [
-    { name: "BAU 1", amount: "€3.2M", percentage: 35.8, color: "bg-[#FFD700]" },
-    { name: "BAU 2", amount: "€2.8M", percentage: 31.3, color: "bg-[#FFD700]" },
-    { name: "New Talent", amount: "€2.1M", percentage: 23.5, color: "bg-[#FFD700]" },
-    { name: "Agency Fees", amount: "€0.8M", percentage: 9.4, color: "bg-[#FFD700]" }
   ];
 
   return (
@@ -72,25 +64,6 @@ export const BudgetOverview = () => {
               </div>
             );
           })}
-        </div>
-
-        {/* Category Spend Analysis */}
-        <div className="bg-[#2A2A2A] rounded-lg p-6 border border-gray-700">
-          <h3 className="text-sm font-medium text-white mb-4">Category Spend Analysis</h3>
-          <div className="space-y-3">
-            {categories.map((category, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className={`w-3 h-3 ${category.color} rounded-full`}></div>
-                  <span className="text-sm text-white">{category.name}</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-sm font-medium text-white">{category.amount}</span>
-                  <p className="text-xs text-gray-400">{category.percentage}%</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>
