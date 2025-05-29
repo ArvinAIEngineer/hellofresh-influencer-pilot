@@ -1,11 +1,109 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Progress } from "@/components/ui/progress";
+import { Calendar, ChevronDown, Filter, Search, Settings, Users, TrendingUp, TrendingDown } from "lucide-react";
+import { GlobalHeader } from "@/components/GlobalHeader";
+import { CampaignOverview } from "@/components/CampaignOverview";
+import { InfluencerTable } from "@/components/InfluencerTable";
+import { BudgetOverview } from "@/components/BudgetOverview";
+import { MarketPerformance } from "@/components/MarketPerformance";
 
 const Index = () => {
+  const [selectedBrand, setSelectedBrand] = useState("hellofresh");
+  const [selectedMarkets, setSelectedMarkets] = useState(["uk", "fr", "nordic"]);
+  const [dateRange, setDateRange] = useState("month");
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-[#0F0F0F] text-white">
+      {/* Global Header */}
+      <GlobalHeader />
+      
+      {/* Main Dashboard Content */}
+      <div className="p-6 space-y-6">
+        {/* Global Filters Bar */}
+        <div className="bg-[#1A1A1A] rounded-xl p-4 border border-gray-800">
+          <div className="flex flex-wrap gap-4 items-center">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-400">Brand:</span>
+              <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+                <SelectTrigger className="w-40 bg-[#2A2A2A] border-gray-700">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-[#2A2A2A] border-gray-700">
+                  <SelectItem value="hellofresh">HelloFresh</SelectItem>
+                  <SelectItem value="greenchef">Green Chef</SelectItem>
+                  <SelectItem value="everyplate">EveryPlate</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-400">Markets:</span>
+              <Select>
+                <SelectTrigger className="w-48 bg-[#2A2A2A] border-gray-700">
+                  <SelectValue placeholder="All Markets" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#2A2A2A] border-gray-700">
+                  <SelectItem value="uk">UK</SelectItem>
+                  <SelectItem value="fr">France</SelectItem>
+                  <SelectItem value="nordic">Nordic Group</SelectItem>
+                  <SelectItem value="se">Sweden</SelectItem>
+                  <SelectItem value="no">Norway</SelectItem>
+                  <SelectItem value="dk">Denmark</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-400">Period:</span>
+              <Select value={dateRange} onValueChange={setDateRange}>
+                <SelectTrigger className="w-32 bg-[#2A2A2A] border-gray-700">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-[#2A2A2A] border-gray-700">
+                  <SelectItem value="week">This Week</SelectItem>
+                  <SelectItem value="month">This Month</SelectItem>
+                  <SelectItem value="ytd">YTD</SelectItem>
+                  <SelectItem value="custom">Custom</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <Button variant="outline" className="ml-auto bg-[#FFD700] text-black hover:bg-[#FFA500] border-[#FFD700]">
+              <Filter className="w-4 h-4 mr-2" />
+              Advanced Filters
+            </Button>
+          </div>
+        </div>
+
+        {/* 4-Section Dashboard Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Section 1: Campaign Overview */}
+          <div className="lg:col-span-2">
+            <CampaignOverview />
+          </div>
+          
+          {/* Section 2: Influencer Performance Table */}
+          <div className="lg:col-span-2">
+            <InfluencerTable />
+          </div>
+          
+          {/* Section 3: Budget Overview */}
+          <div>
+            <BudgetOverview />
+          </div>
+          
+          {/* Section 4: Market Performance */}
+          <div>
+            <MarketPerformance />
+          </div>
+        </div>
       </div>
     </div>
   );
