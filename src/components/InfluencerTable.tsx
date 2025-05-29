@@ -94,6 +94,23 @@ export const InfluencerTable = () => {
       activations: 78,
       reactivations: 25,
       tier: "Top"
+    },
+    {
+      name: "Vegan Chef Co",
+      handle: "@veganchefco",
+      avatar: "/placeholder.svg",
+      channel: "TikTok",
+      posted: "pending",
+      conversions: 756,
+      trend: "up",
+      cac: 14.32,
+      cacVariance: 2.8,
+      postsBooked: 1,
+      postsTotal: 2,
+      postsLive: 1,
+      activations: 72,
+      reactivations: 18,
+      tier: "Average"
     }
   ];
 
