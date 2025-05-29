@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronDown, TrendingUp, TrendingDown } from "lucide-react";
 
 export const InfluencerTable = () => {
@@ -76,6 +77,23 @@ export const InfluencerTable = () => {
       activations: 34,
       reactivations: 12,
       tier: "Poor"
+    },
+    {
+      name: "Healthy Eats",
+      handle: "@healthyeats_de",
+      avatar: "/placeholder.svg",
+      channel: "Instagram",
+      posted: "live",
+      conversions: 1567,
+      trend: "up",
+      cac: 10.45,
+      cacVariance: -5.8,
+      postsBooked: 2,
+      postsTotal: 3,
+      postsLive: 2,
+      activations: 78,
+      reactivations: 25,
+      tier: "Top"
     }
   ];
 
@@ -122,118 +140,120 @@ export const InfluencerTable = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-700">
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Influencer</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Channel</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Status</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Conversions</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">CAC</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Posts Booked</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Posts Live</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Activations</th>
-                <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Tier</th>
-              </tr>
-            </thead>
-            <tbody>
-              {influencers.map((influencer, index) => (
-                <tr key={index} className="border-b border-gray-800 hover:bg-[#2A2A2A] transition-colors">
-                  <td className="py-4 px-2">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src={influencer.avatar} />
-                        <AvatarFallback className="bg-[#FFD700] text-black text-xs">
-                          {influencer.name.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="text-sm font-medium text-white">{influencer.name}</p>
-                        <p className="text-xs text-gray-400">{influencer.handle}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-4 px-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">{getChannelIcon(influencer.channel)}</span>
-                      <span className="text-sm text-white">{influencer.channel}</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-2">
-                    <Badge className={`text-xs ${
-                      influencer.posted === 'live' ? 'bg-green-900 text-green-300' :
-                      influencer.posted === 'pending' ? 'bg-yellow-900 text-yellow-300' :
-                      'bg-red-900 text-red-300'
-                    }`}>
-                      {influencer.posted === 'live' ? '✅ Live' :
-                       influencer.posted === 'pending' ? '⏳ Pending' : '❌ Delayed'}
-                    </Badge>
-                  </td>
-                  <td className="py-4 px-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-white">
-                        {influencer.conversions.toLocaleString()}
-                      </span>
-                      {influencer.trend === 'up' ? (
-                        <TrendingUp className="w-4 h-4 text-green-400" />
-                      ) : (
-                        <TrendingDown className="w-4 h-4 text-red-400" />
-                      )}
-                    </div>
-                  </td>
-                  <td className="py-4 px-2">
-                    <div>
-                      <span className="text-sm font-medium text-white">
-                        €{influencer.cac.toFixed(2)}
-                      </span>
-                      <p className={`text-xs ${
-                        influencer.cacVariance < 0 ? 'text-green-400' : 'text-red-400'
-                      }`}>
-                        {influencer.cacVariance > 0 ? '+' : ''}{influencer.cacVariance}%
-                      </p>
-                    </div>
-                  </td>
-                  <td className="py-4 px-2">
-                    <div className="w-20">
-                      <div className="flex justify-between text-xs text-gray-400 mb-1">
-                        <span>{influencer.postsBooked}</span>
-                        <span>{influencer.postsTotal}</span>
-                      </div>
-                      <Progress 
-                        value={(influencer.postsBooked / influencer.postsTotal) * 100} 
-                        className="h-2"
-                      />
-                    </div>
-                  </td>
-                  <td className="py-4 px-2">
-                    <div className="w-20">
-                      <div className="flex justify-between text-xs text-gray-400 mb-1">
-                        <span>{influencer.postsLive}</span>
-                        <span>{influencer.postsTotal}</span>
-                      </div>
-                      <Progress 
-                        value={(influencer.postsLive / influencer.postsTotal) * 100} 
-                        className="h-2"
-                      />
-                    </div>
-                  </td>
-                  <td className="py-4 px-2">
-                    <div className="w-16">
-                      <span className="text-sm text-white">{influencer.activations}%</span>
-                      <Progress value={influencer.activations} className="h-2 mt-1" />
-                    </div>
-                  </td>
-                  <td className="py-4 px-2">
-                    <Badge className={getTierBadge(influencer.tier)}>
-                      {influencer.tier}
-                    </Badge>
-                  </td>
+        <ScrollArea className="h-[400px] w-full">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Influencer</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Channel</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Status</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Conversions</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">CAC</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Posts Booked</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Posts Live</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Activations</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-gray-400">Tier</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {influencers.map((influencer, index) => (
+                  <tr key={index} className="border-b border-gray-800 hover:bg-[#2A2A2A] transition-colors">
+                    <td className="py-4 px-2">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="w-8 h-8">
+                          <AvatarImage src={influencer.avatar} />
+                          <AvatarFallback className="bg-[#FFD700] text-black text-xs">
+                            {influencer.name.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="text-sm font-medium text-white">{influencer.name}</p>
+                          <p className="text-xs text-gray-400">{influencer.handle}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg">{getChannelIcon(influencer.channel)}</span>
+                        <span className="text-sm text-white">{influencer.channel}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-2">
+                      <Badge className={`text-xs ${
+                        influencer.posted === 'live' ? 'bg-green-900 text-green-300' :
+                        influencer.posted === 'pending' ? 'bg-yellow-900 text-yellow-300' :
+                        'bg-red-900 text-red-300'
+                      }`}>
+                        {influencer.posted === 'live' ? '✅ Live' :
+                         influencer.posted === 'pending' ? '⏳ Pending' : '❌ Delayed'}
+                      </Badge>
+                    </td>
+                    <td className="py-4 px-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-white">
+                          {influencer.conversions.toLocaleString()}
+                        </span>
+                        {influencer.trend === 'up' ? (
+                          <TrendingUp className="w-4 h-4 text-green-400" />
+                        ) : (
+                          <TrendingDown className="w-4 h-4 text-red-400" />
+                        )}
+                      </div>
+                    </td>
+                    <td className="py-4 px-2">
+                      <div>
+                        <span className="text-sm font-medium text-white">
+                          €{influencer.cac.toFixed(2)}
+                        </span>
+                        <p className={`text-xs ${
+                          influencer.cacVariance < 0 ? 'text-green-400' : 'text-red-400'
+                        }`}>
+                          {influencer.cacVariance > 0 ? '+' : ''}{influencer.cacVariance}%
+                        </p>
+                      </div>
+                    </td>
+                    <td className="py-4 px-2">
+                      <div className="w-20">
+                        <div className="flex justify-between text-xs text-gray-400 mb-1">
+                          <span>{influencer.postsBooked}</span>
+                          <span>{influencer.postsTotal}</span>
+                        </div>
+                        <Progress 
+                          value={(influencer.postsBooked / influencer.postsTotal) * 100} 
+                          className="h-2"
+                        />
+                      </div>
+                    </td>
+                    <td className="py-4 px-2">
+                      <div className="w-20">
+                        <div className="flex justify-between text-xs text-gray-400 mb-1">
+                          <span>{influencer.postsLive}</span>
+                          <span>{influencer.postsTotal}</span>
+                        </div>
+                        <Progress 
+                          value={(influencer.postsLive / influencer.postsTotal) * 100} 
+                          className="h-2"
+                        />
+                      </div>
+                    </td>
+                    <td className="py-4 px-2">
+                      <div className="w-16">
+                        <span className="text-sm text-white">{influencer.activations}%</span>
+                        <Progress value={influencer.activations} className="h-2 mt-1" />
+                      </div>
+                    </td>
+                    <td className="py-4 px-2">
+                      <Badge className={getTierBadge(influencer.tier)}>
+                        {influencer.tier}
+                      </Badge>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </ScrollArea>
         
         {/* Projected Performance Panel */}
         <div className="mt-6 bg-[#2A2A2A] rounded-lg p-4 border border-gray-700">
