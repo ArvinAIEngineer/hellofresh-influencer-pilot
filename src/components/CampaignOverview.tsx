@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, TrendingDown, Users, Target } from "lucide-react";
+import { TrendingUp, TrendingDown, Target } from "lucide-react";
 
 export const CampaignOverview = () => {
   const metrics = [
@@ -28,43 +28,86 @@ export const CampaignOverview = () => {
       trend: "up", 
       subtitle: "vs. Last Year",
       icon: TrendingUp
-    },
-    {
-      title: "Global CAC",
-      value: "€12.84",
-      change: "-5.2%",
-      trend: "down",
-      subtitle: "Avg. Cost per Acquisition",
-      icon: TrendingDown
-    },
-    {
-      title: "Total Conversions",
-      value: "186.4K",
-      change: "+22.1%",
-      trend: "up",
-      subtitle: "This Quarter",
-      icon: Users
     }
   ];
 
+  const influencers = [
+    {
+      name: "Emma Foodie",
+      handle: "@emmafoodie",
+      conversions: 1247,
+      trend: "up",
+      cac: 11.24,
+      cacVariance: -5.2,
+      postsBooked: 3,
+      postsTotal: 4,
+      postsLive: 2,
+      activations: 85,
+      tier: "Top"
+    },
+    {
+      name: "Nordic Chef", 
+      handle: "@nordicchef",
+      conversions: 892,
+      trend: "down",
+      cac: 13.87,
+      cacVariance: 5.1,
+      postsBooked: 2,
+      postsTotal: 3,
+      postsLive: 1,
+      activations: 67,
+      tier: "Average"
+    },
+    {
+      name: "Kitchen Stories",
+      handle: "@kitchenstories_uk",
+      conversions: 2134,
+      trend: "up",
+      cac: 9.82,
+      cacVariance: -12.4,
+      postsBooked: 4,
+      postsTotal: 4,
+      postsLive: 3,
+      activations: 94,
+      tier: "Top"
+    },
+    {
+      name: "French Cuisine",
+      handle: "@frenchcuisine",
+      conversions: 423,
+      trend: "down",
+      cac: 18.95,
+      cacVariance: 23.1,
+      postsBooked: 1,
+      postsTotal: 2,
+      postsLive: 0,
+      activations: 34,
+      tier: "Poor"
+    }
+  ];
+
+  const getTierBadge = (tier: string) => {
+    const styles = {
+      Top: "bg-green-600 text-white",
+      Average: "bg-yellow-600 text-black", 
+      Poor: "bg-red-600 text-white"
+    };
+    return styles[tier as keyof typeof styles];
+  };
+
   return (
-    <Card className="bg-[#1A1A1A] border-gray-800">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-xl text-white">Campaign Overview & Performance</CardTitle>
-          <Badge className="bg-[#FFD700] text-black hover:bg-[#FFA500]">
-            Live Data
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl font-semibold text-white mb-4">Campaign Overview & Performance</h2>
+        
+        {/* Metrics Cards */}
+        <div className="grid grid-cols-3 gap-4 mb-6">
           {metrics.map((metric, index) => {
             const Icon = metric.icon;
             return (
-              <div key={index} className="bg-[#2A2A2A] rounded-lg p-4 border border-gray-700">
+              <div key={index} className="bg-[#2A2A2A] rounded-lg p-6 border border-gray-700">
                 <div className="flex items-center justify-between mb-2">
-                  <Icon className="w-5 h-5 text-[#FFD700]" />
+                  <Icon className="w-6 h-6 text-[#FFD700]" />
                   <span className={`text-sm font-medium ${
                     metric.trend === 'up' ? 'text-green-400' : 'text-red-400'
                   }`}>
@@ -73,71 +116,112 @@ export const CampaignOverview = () => {
                 </div>
                 <div className="space-y-1">
                   <p className="text-2xl font-bold text-white">{metric.value}</p>
-                  <p className="text-xs text-gray-400">{metric.title}</p>
+                  <p className="text-sm text-gray-400">{metric.title}</p>
                   <p className="text-xs text-gray-500">{metric.subtitle}</p>
                 </div>
               </div>
             );
           })}
         </div>
-        
-        {/* Performance Indicators */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-[#2A2A2A] rounded-lg p-4 border border-gray-700">
-            <h4 className="text-sm font-medium text-gray-400 mb-2">Top Performing Markets</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-white">UK</span>
-                <Badge className="bg-green-900 text-green-300">€4.2M</Badge>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-white">Nordic</span>
-                <Badge className="bg-green-900 text-green-300">€2.8M</Badge>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-white">France</span>
-                <Badge className="bg-yellow-900 text-yellow-300">€1.9M</Badge>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-[#2A2A2A] rounded-lg p-4 border border-gray-700">
-            <h4 className="text-sm font-medium text-gray-400 mb-2">Channel Performance</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-white">Instagram</span>
-                <span className="text-sm text-[#FFD700]">€11.2 CAC</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-white">TikTok</span>
-                <span className="text-sm text-[#FFD700]">€13.8 CAC</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-white">YouTube</span>
-                <span className="text-sm text-[#FFD700]">€15.1 CAC</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-[#2A2A2A] rounded-lg p-4 border border-gray-700">
-            <h4 className="text-sm font-medium text-gray-400 mb-2">Performance Alerts</h4>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                <span className="text-xs text-white">3 campaigns over CAC target</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                <span className="text-xs text-white">Budget utilization: 78%</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-xs text-white">12 top performers available</span>
-              </div>
-            </div>
+
+        {/* Influencer Performance Table */}
+        <div className="bg-[#2A2A2A] rounded-lg border border-gray-700">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-600">
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Influencer</th>
+                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-400">Conversions</th>
+                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-400">CAC</th>
+                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-400">Posts Booked</th>
+                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-400">Posts Live</th>
+                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-400">Activations</th>
+                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-400">Tier</th>
+                </tr>
+              </thead>
+              <tbody>
+                {influencers.map((influencer, index) => (
+                  <tr key={index} className="border-b border-gray-700 hover:bg-[#3A3A3A] transition-colors">
+                    <td className="py-4 px-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                          <span className="text-xs text-white">{influencer.name.charAt(0)}</span>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-white">{influencer.name}</p>
+                          <p className="text-xs text-gray-400">{influencer.handle}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="text-sm font-medium text-white">
+                          {influencer.conversions.toLocaleString()}
+                        </span>
+                        {influencer.trend === 'up' ? (
+                          <TrendingUp className="w-4 h-4 text-green-400" />
+                        ) : (
+                          <TrendingDown className="w-4 h-4 text-red-400" />
+                        )}
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-center">
+                      <div>
+                        <span className="text-sm font-medium text-white">
+                          €{influencer.cac.toFixed(2)}
+                        </span>
+                        <p className={`text-xs ${
+                          influencer.cacVariance < 0 ? 'text-green-400' : 'text-red-400'
+                        }`}>
+                          {influencer.cacVariance > 0 ? '+' : ''}{influencer.cacVariance}%
+                        </p>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-center">
+                      <div className="flex justify-center">
+                        <div className="w-12 bg-gray-700 rounded-full h-2">
+                          <div 
+                            className="h-2 rounded-full bg-[#FFD700]"
+                            style={{ width: `${(influencer.postsBooked / influencer.postsTotal) * 100}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-400">{influencer.postsBooked}</span>
+                    </td>
+                    <td className="py-4 px-4 text-center">
+                      <div className="flex justify-center">
+                        <div className="w-12 bg-gray-700 rounded-full h-2">
+                          <div 
+                            className="h-2 rounded-full bg-[#FFD700]"
+                            style={{ width: `${(influencer.postsLive / influencer.postsTotal) * 100}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-400">{influencer.postsLive}</span>
+                    </td>
+                    <td className="py-4 px-4 text-center">
+                      <div className="flex justify-center">
+                        <div className="w-12 bg-gray-700 rounded-full h-2">
+                          <div 
+                            className="h-2 rounded-full bg-[#FFD700]"
+                            style={{ width: `${influencer.activations}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-400">{influencer.activations}%</span>
+                    </td>
+                    <td className="py-4 px-4 text-center">
+                      <Badge className={`text-xs ${getTierBadge(influencer.tier)}`}>
+                        {influencer.tier}
+                      </Badge>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

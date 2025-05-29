@@ -1,22 +1,16 @@
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
-import { Calendar, ChevronDown, Filter, Search, Settings, Users, TrendingUp, TrendingDown } from "lucide-react";
+import { Filter } from "lucide-react";
 import { GlobalHeader } from "@/components/GlobalHeader";
 import { CampaignOverview } from "@/components/CampaignOverview";
-import { InfluencerTable } from "@/components/InfluencerTable";
 import { BudgetOverview } from "@/components/BudgetOverview";
 import { MarketPerformance } from "@/components/MarketPerformance";
 
 const Index = () => {
   const [selectedBrand, setSelectedBrand] = useState("hellofresh");
-  const [selectedMarkets, setSelectedMarkets] = useState(["uk", "fr", "nordic"]);
+  const [selectedMarkets, setSelectedMarkets] = useState("all");
   const [dateRange, setDateRange] = useState("month");
 
   return (
@@ -45,11 +39,12 @@ const Index = () => {
             
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-400">Markets:</span>
-              <Select>
+              <Select value={selectedMarkets} onValueChange={setSelectedMarkets}>
                 <SelectTrigger className="w-48 bg-[#2A2A2A] border-gray-700">
-                  <SelectValue placeholder="All Markets" />
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-[#2A2A2A] border-gray-700">
+                  <SelectItem value="all">All Markets</SelectItem>
                   <SelectItem value="uk">UK</SelectItem>
                   <SelectItem value="fr">France</SelectItem>
                   <SelectItem value="nordic">Nordic Group</SelectItem>
@@ -74,33 +69,23 @@ const Index = () => {
                 </SelectContent>
               </Select>
             </div>
-            
-            <Button variant="outline" className="ml-auto bg-[#FFD700] text-black hover:bg-[#FFA500] border-[#FFD700]">
-              <Filter className="w-4 h-4 mr-2" />
-              Advanced Filters
-            </Button>
           </div>
         </div>
 
-        {/* 4-Section Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Section 1: Campaign Overview */}
-          <div className="lg:col-span-2">
+        {/* Dashboard Grid Layout */}
+        <div className="grid grid-cols-2 gap-6">
+          {/* Top Left: Campaign Overview */}
+          <div>
             <CampaignOverview />
           </div>
           
-          {/* Section 2: Influencer Performance Table */}
-          <div className="lg:col-span-2">
-            <InfluencerTable />
-          </div>
-          
-          {/* Section 3: Budget Overview */}
+          {/* Top Right: Budget Overview */}
           <div>
             <BudgetOverview />
           </div>
           
-          {/* Section 4: Market Performance */}
-          <div>
+          {/* Bottom Span: Market Performance */}
+          <div className="col-span-2">
             <MarketPerformance />
           </div>
         </div>
